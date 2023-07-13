@@ -1,16 +1,28 @@
+
 import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../cart/cartSlice";
+import axios from "axios";
+import { useForm } from "../hooks/useForm";
 import { HandleDeleteContext } from "../pages/AdminDashboard";
+
 
 export const ProductCard = ({ product }) => {
   const { rol } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const { nombre, precio, descripcion, onInputChange, formState, onResetForm } =
+    useForm({
+      nombre: product.nombre,
+      precio: product.precio,
+      descripcion: product.descripcion,
+    });
+
+  const [api, setApi] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   const handleAddToCart = () => {
     dispatch(addItem(product));
   };
-
   const handleEdit = () => {};
   
 
